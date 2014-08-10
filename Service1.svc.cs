@@ -51,6 +51,8 @@ namespace TimeToEatWebService
                     p.MenuURL = reader[2].ToString();
                     p.TypeID = Int32.Parse(reader[3].ToString());
                     p.Phones = GetPhonesByPlaceID(p.PlaceID);
+                    p.Type = GetPlaceType(p.TypeID);
+
                     toReturn.Add(p);
                 }
                 reader.Close();
@@ -107,6 +109,46 @@ namespace TimeToEatWebService
                 p.PhoneNo = e.ToString();
 
                 toReturn.Add(p);
+                return toReturn;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return toReturn;
+        }
+
+        public PlaceType GetPlaceType(int typeID)
+        {
+
+            fixCORS();
+
+            PlaceType toReturn = new PlaceType();
+
+            SqlConnection connection = new SqlConnection(cString);
+            string sqlString = "SELECT * FROM PlaceType WHERE [TypeID] = @typeID";
+            SqlCommand cmd = new SqlCommand(sqlString, connection);
+
+            cmd.Parameters.AddWithValue("typeID", typeID);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    toReturn.TypeID = Int32.Parse(reader[0].ToString());
+                    toReturn.Name = reader[1].ToString();
+                    break;
+                }
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                toReturn.TypeID = -1;
+                toReturn.Name = e.ToString();
+
                 return toReturn;
             }
             finally
