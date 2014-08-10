@@ -63,6 +63,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Phone.cs" />
+    <Compile Include="Model\Place.cs" />
+    <Compile Include="Model\PlaceType.cs" />
     <Compile Include="Service1.svc.cs">
       <DependentUpon>Service1.svc</DependentUpon>
     </Compile>

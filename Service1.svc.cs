@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using TimeToEatWebService.Model;
 
 namespace TimeToEatWebService
 {
@@ -23,6 +25,50 @@ namespace TimeToEatWebService
         public string GetData(int value)
         {
             return string.Format("You entered: {0}", cString);
+        }
+
+
+        public List<Place> GetPlaces() { 
+   
+            fixCORS();
+
+            List<Place> toReturn = new List<Place>();
+
+            SqlConnection connection = new SqlConnection(cString);
+            string sqlString = "SELECT * FROM Place";
+            SqlCommand cmd = new SqlCommand(sqlString, connection);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Place p = new Place();
+                    p.ID = Int32.Parse(reader[0].ToString());
+                    p.Name = reader[1].ToString();
+                    p.MenuURL = reader[2].ToString();
+                    p.TypeID = Int32.Parse(reader[3].ToString());
+
+                    toReturn.Add(p);
+                }
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                Place p = new Place();
+                p.ID = -1;
+                p.Name = e.ToString();
+
+                toReturn.Add(p);
+                return toReturn;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return toReturn;        
         }
     }
 }

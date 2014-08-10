@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using TimeToEatWebService.Model;
 
 namespace TimeToEatWebService
 {
@@ -20,8 +21,12 @@ namespace TimeToEatWebService
          UriTemplate = "GetData?value={value}")]
         string GetData(int value);
 
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+         ResponseFormat = WebMessageFormat.Json,
+         BodyStyle = WebMessageBodyStyle.Wrapped,
+         UriTemplate = "GetPlaces")]
+        List<Place> GetPlaces();
+
      }
-
-
-
 }
