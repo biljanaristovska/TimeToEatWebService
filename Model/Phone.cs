@@ -7,6 +7,7 @@ namespace TimeToEatWebService.Model
 {
     public class Phone
     {
+        public int PhoneID { get; set; }
         public int PlaceID { get; set; }
         public string PhoneNo { get; set; }
     }

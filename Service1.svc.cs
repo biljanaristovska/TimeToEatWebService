@@ -46,11 +46,11 @@ namespace TimeToEatWebService
                 while (reader.Read())
                 {
                     Place p = new Place();
-                    p.ID = Int32.Parse(reader[0].ToString());
+                    p.PlaceID = Int32.Parse(reader[0].ToString());
                     p.Name = reader[1].ToString();
                     p.MenuURL = reader[2].ToString();
                     p.TypeID = Int32.Parse(reader[3].ToString());
-
+                    p.Phones = GetPhonesByPlaceID(p.PlaceID);
                     toReturn.Add(p);
                 }
                 reader.Close();
@@ -58,7 +58,7 @@ namespace TimeToEatWebService
             catch (Exception e)
             {
                 Place p = new Place();
-                p.ID = -1;
+                p.PlaceID = -1;
                 p.Name = e.ToString();
 
                 toReturn.Add(p);
@@ -69,6 +69,51 @@ namespace TimeToEatWebService
                 connection.Close();
             }
             return toReturn;        
+        }
+
+        public List<Phone> GetPhonesByPlaceID(int placeID)
+        {
+
+            fixCORS();
+
+            List<Phone> toReturn = new List<Phone>();
+
+            SqlConnection connection = new SqlConnection(cString);
+            string sqlString = "SELECT * FROM Phone WHERE [PlaceID] = @placeID";
+            SqlCommand cmd = new SqlCommand(sqlString, connection);
+
+            cmd.Parameters.AddWithValue("placeID", placeID);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Phone p = new Phone();
+                    p.PhoneID = Int32.Parse(reader[0].ToString());
+                    p.PlaceID = Int32.Parse(reader[1].ToString());
+                    p.PhoneNo = reader[2].ToString();
+                    
+                    toReturn.Add(p);
+                }
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                Phone p = new Phone();
+                p.PhoneID = -1;
+                p.PhoneNo = e.ToString();
+
+                toReturn.Add(p);
+                return toReturn;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return toReturn;
         }
     }
 }

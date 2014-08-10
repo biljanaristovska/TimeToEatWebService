@@ -7,7 +7,7 @@ namespace TimeToEatWebService.Model
 {
     public class Place
     {
-        public int ID { get; set; }
+        public int PlaceID { get; set; }
         public string Name { get; set; }
         public string MenuURL { get; set; }
         public int TypeID { get; set; }
