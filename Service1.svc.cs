@@ -18,6 +18,7 @@ namespace TimeToEatWebService
         string cString = ConfigurationManager.AppSettings["SQLSERVER_CONNECTION_STRING"];
         private void fixCORS()
         {
+            WebOperationContext.Current.OutgoingResponse.Headers.Remove("Access-Control-Allow-Origin");
             WebOperationContext.Current.OutgoingResponse.Headers.Add("Access-Control-Allow-Origin", "*");
             WebOperationContext.Current.OutgoingResponse.Headers.Add("Access-Control-Allow-Methods", "POST");
             WebOperationContext.Current.OutgoingResponse.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Accept");
