@@ -15,7 +15,7 @@ namespace TimeToEatWebService
     {
 
         [OperationContract]
-        [WebInvoke(Method = "POST",
+        [WebInvoke(Method = "GET",
          ResponseFormat = WebMessageFormat.Json,
          BodyStyle = WebMessageBodyStyle.Wrapped,
          UriTemplate = "GetData?value={value}")]
