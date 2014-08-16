@@ -28,5 +28,12 @@ namespace TimeToEatWebService
          UriTemplate = "GetPlaces")]
         List<Place> GetPlaces();
 
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+         ResponseFormat = WebMessageFormat.Json,
+         BodyStyle = WebMessageBodyStyle.Wrapped,
+         UriTemplate = "GetPlaceTypes")]
+        List<PlaceType> GetPlaceTypes();
+
      }
 }

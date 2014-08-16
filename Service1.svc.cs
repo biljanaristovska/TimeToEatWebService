@@ -158,5 +158,46 @@ namespace TimeToEatWebService
             }
             return toReturn;
         }
+
+        public List<PlaceType> GetPlaceTypes()
+        {
+
+            fixCORS();
+
+            List<PlaceType> toReturn = new List<PlaceType>();
+
+            SqlConnection connection = new SqlConnection(cString);
+            string sqlString = "SELECT * FROM PlaceType";
+            SqlCommand cmd = new SqlCommand(sqlString, connection);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    PlaceType pt= new PlaceType();
+                    pt.TypeID = Int32.Parse(reader[0].ToString());
+                    pt.Name = reader[1].ToString();
+                    toReturn.Add(pt);
+                    
+                }
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                PlaceType pt = new PlaceType();
+                pt.TypeID = -1;
+                pt.Name = e.ToString();
+                toReturn.Add(pt);
+                return toReturn;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return toReturn;
+        }
     }
 }
