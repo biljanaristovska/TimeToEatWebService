@@ -3,4 +3,3 @@ c:\users\biljana\documents\visual studio 2013\Projects\TimeToEatWebService\TimeT
 c:\users\biljana\documents\visual studio 2013\Projects\TimeToEatWebService\TimeToEatWebService\bin\TimeToEatWebService.pdb
 c:\users\biljana\documents\visual studio 2013\Projects\TimeToEatWebService\TimeToEatWebService\obj\Debug\TimeToEatWebService.dll
 c:\users\biljana\documents\visual studio 2013\Projects\TimeToEatWebService\TimeToEatWebService\obj\Debug\TimeToEatWebService.pdb
-C:\Users\Biljana\documents\visual studio 2013\Projects\TimeToEatWebService\TimeToEatWebService\obj\Debug\TimeToEatWebService.csprojResolveAssemblyReference.cache
